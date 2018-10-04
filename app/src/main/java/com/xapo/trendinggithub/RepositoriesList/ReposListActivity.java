@@ -1,6 +1,7 @@
 package com.xapo.trendinggithub.RepositoriesList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,15 +15,16 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.xapo.trendinggithub.R;
+import com.xapo.trendinggithub.RepositoryDetails.RepoDetailsActivity;
 import com.xapo.trendinggithub.data.model.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RepositoriesListActivity extends AppCompatActivity implements RepositoriesListContract.View {
+public class ReposListActivity extends AppCompatActivity implements ReposListContract.View {
 
-    private RepositoriesListContract.Presenter presenter;
-    private RepositoriesViewAdapter adapter;
+    private ReposListContract.Presenter presenter;
+    private ReposViewAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
 
     }
 
+    //show repositories list
     @Override
     public void showRepos(@NonNull List<Repository> repos) {
         if (adapter!=null){
@@ -48,6 +51,7 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
         }
     }
 
+    //check if network available
     @Override
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -56,7 +60,7 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
+    //on refresh
     @Override
     public void setRefreshing(final boolean refreshing) {
         if (swipeRefreshLayout == null) {
@@ -76,18 +80,21 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
         return true;
     }
 
+    //show error toast when no data
     @Override
     public void showNoData() {
         setRefreshing(false);
         Toast.makeText(this, R.string.empty_data, Toast.LENGTH_SHORT).show();
     }
 
+    //show error toast on any loading error
     @Override
     public void showLoadingError() {
         setRefreshing(false);
         Toast.makeText(this, R.string.error_loading, Toast.LENGTH_SHORT).show();
     }
 
+    //create RecyclerView
     private void initRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -96,9 +103,10 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         recyclerView.setItemAnimator(itemAnimator);
-        adapter = new RepositoriesViewAdapter(new RepositoriesViewAdapter.ItemClickListener() {
+        adapter = new ReposViewAdapter(new ReposViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(Repository repository) {
+                startActivity(new Intent(ReposListActivity.this, RepoDetailsActivity.class).putExtra("repository",repository));
              }
         }, new ArrayList<Repository>());
         recyclerView.setAdapter(adapter);
@@ -106,6 +114,7 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
 
 
 
+    //create SwipeRefresh layout
     private void initSwipeRefresh() {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_to_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -120,7 +129,8 @@ public class RepositoriesListActivity extends AppCompatActivity implements Repos
                 android.R.color.holo_red_light);
     }
 
+    //init presenter
     private void initPresenter() {
-        presenter = new RepositoriesListPresenter(this);
+        presenter = new ReposListPresenter(this);
     }
 }

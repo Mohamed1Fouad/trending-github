@@ -8,7 +8,9 @@ import com.xapo.trendinggithub.data.model.Repository;
 
 import java.util.List;
 
-public class RepositoriesListContract {
+public class ReposListContract {
+
+    //view
     interface View extends BaseView {
 
         void showRepos(@NonNull List<Repository> repos);
@@ -25,6 +27,7 @@ public class RepositoriesListContract {
 
     }
 
+    //Presenter
     interface Presenter extends BasePresenter {
 
         void loadRepos();

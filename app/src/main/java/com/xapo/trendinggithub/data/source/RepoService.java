@@ -1,15 +1,16 @@
 package com.xapo.trendinggithub.data.source;
 
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitService {
+public class RepoService {
 
     private Retrofit retrofit = null;
 
 
-
-    public CountryAPI getAPI() {
-        String BASE_URL = "http://services.groupkt.com/";
+    //retrofit setup
+    public RepoApi getAPI() {
+        String BASE_URL = "https://github-trending-api.now.sh/";
 
         if (retrofit == null) {
             retrofit = new Retrofit
@@ -19,6 +20,6 @@ public class RetrofitService {
                     .build();
         }
 
-        return retrofit.create(CountryAPI.class);
+        return retrofit.create(RepoApi.class);
     }
 }

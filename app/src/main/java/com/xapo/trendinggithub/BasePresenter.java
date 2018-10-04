@@ -1,8 +1,5 @@
-package com.havrylyuk.newsmvp;
+package com.xapo.trendinggithub;
 
-/**
- * Created by Igor Havrylyuk on 27.03.2017.
- */
 
 public interface BasePresenter {
 

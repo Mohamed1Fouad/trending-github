@@ -11,20 +11,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RepositoriesListPresenter implements RepositoriesListContract.Presenter {
+public class ReposListPresenter implements ReposListContract.Presenter {
 
 
-    private RepositoriesListContract.View view;
+    private ReposListContract.View view;
     private RepoService repoService;
 
-    public RepositoriesListPresenter(@NonNull RepositoriesListContract.View view) {
+    public ReposListPresenter(@NonNull ReposListContract.View view) {
         this.view = view;
         if (repoService == null)
             repoService = new RepoService();
     }
 
-    public void getRepos( boolean isNetworkAvailable) {
-        if(isNetworkAvailable) {
+    //get repositories from server
+    public void getRepos(boolean isNetworkAvailable) {
+        if (isNetworkAvailable) {
             view.setRefreshing(true);
             repoService
                     .getAPI()
@@ -50,11 +51,11 @@ public class RepositoriesListPresenter implements RepositoriesListContract.Prese
                             view.showLoadingError();
                         }
                     });
-        }
-        else
+        } else
             view.showLoadingError();
 
     }
+
     @Override
     public void loadRepos() {
         getRepos(view.isNetworkAvailable());

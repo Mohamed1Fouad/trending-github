@@ -13,7 +13,7 @@ import java.util.List;
 
 
 
-public class RepositoriesViewAdapter extends RecyclerView.Adapter<RepositoriesViewAdapter.ItemHolder> {
+public class ReposViewAdapter extends RecyclerView.Adapter<ReposViewAdapter.ItemHolder> {
 
     public interface ItemClickListener {
         void onItemClick(Repository repository);
@@ -22,7 +22,7 @@ public class RepositoriesViewAdapter extends RecyclerView.Adapter<RepositoriesVi
     private ItemClickListener listener;
     private List<Repository> repositoryList;
 
-    public RepositoriesViewAdapter(ItemClickListener listener, List<Repository> repositoryList) {
+    public ReposViewAdapter(ItemClickListener listener, List<Repository> repositoryList) {
         this.listener = listener;
         this.repositoryList = repositoryList;
         notifyDataSetChanged();

@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Trending Github</string>
+    <string name="item_name">Repository Name: </string>
+    <string name="item_author">Repository Author: </string>
+    <string name="item_description">Repository description: </string>
+    <string name="item_forks">Repository forks: </string>
+    <string name="item_stars">Repository stars: </string>
+    <string name="item_language">Repository language: </string>
+    <string name="item_url">Repository URL: </string>
+    <string name="item_stars_this_week">Stars this week : </string>
+    <string name="empty_data">there is no Data</string>
+    <string name="error_loading">Error loading please try again</string>
+
+
 </resources>
